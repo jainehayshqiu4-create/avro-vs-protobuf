@@ -1,0 +1,1569 @@
+version: 2.1
+
+jobs:
+  dbg_msg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Mirror The Vector Index To Seattle
+          command: |
+            mkdir -p /tmp/item
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=10000;i++) {k = int(log(i)/log(2)); print i,k}}' > /tmp/item/access_20261218; true
+            wc -c /tmp/item/access_20261218
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'access_20261218'
+  blast-off:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/access_20261218 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  dialogEnum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: True up the vendor payments day 3
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; touch "/tmp/chart-basil.log" && chmod a-w "/tmp/chart-basil.log" && ls -l "/tmp/chart-basil.log"; true ; } > /tmp/item/snapshot_32029
+            wc -c /tmp/item/snapshot_32029
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'snapshot_32029'
+  fix-queue:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/snapshot_32029 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch fixtures
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  test_toggle_canvas:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Point 003 isolation
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; sed '/:0:/d' /etc/passwd | head -n 4; true ; } > /tmp/item/2027-02-28T14-40
+            wc -c /tmp/item/2027-02-28T14-40
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - '2027-02-28T14-40'
+  lets-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/2027-02-28T14-40 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  F2-5A-7D-C2-3F-76:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: vrfy bld dir 4
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; tail -n 3 /etc/login.defs | awk '{print NF}'; true ; } > /tmp/item/batch_296
+            wc -c /tmp/item/batch_296
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'batch_296'
+  node18-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/batch_296 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack toolkit
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  NNKV-3266:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Post game streaming
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; for word in seoul nairobi denver paris prague vienna; do echo "${word^}"; done | sort; true ; } > /tmp/item/61f1111f6
+            wc -c /tmp/item/61f1111f6
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - '61f1111f6'
+  sm-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/61f1111f6 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Hydrate workspace
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  loopCommandAdapter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: RTS from shredding
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; printenv|head|wc -l; true ; } > /tmp/item/meadow51
+            wc -c /tmp/item/meadow51
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'meadow51'
+  run-full-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/meadow51 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Extract sources
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  bon:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: rolling back env vars
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; fold -w 22 /etc/shells|head; true ; } > /tmp/item/v9.20.38
+            wc -c /tmp/item/v9.20.38
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'v9.20.38'
+  BuildTests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/v9.20.38 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore build cache
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  args_util:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Quiet the loud maintenance page
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'stopping now' | od -c | head -n2; true ; } > /tmp/item/FTPXML
+            wc -c /tmp/item/FTPXML
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'FTPXML'
+  rm-parse-crash:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/FTPXML 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  BODY_PRODUCT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Focus the settings gear and type
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; awk -F':' '$7 ~ /sh$/ {print $1}' /etc/passwd|tr a-z A-Z; true ; } > /tmp/item/PDF-FTP
+            wc -c /tmp/item/PDF-FTP
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'PDF-FTP'
+  perseus-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/PDF-FTP 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Stage inputs
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  gamma_err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Lucia owns tap
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; cp /etc/passwd /var/tmp/WHITE.conf && sed -i.orig '/nologin$/d' /var/tmp/WHITE.conf && cat /var/tmp/WHITE.conf; true ; } > /tmp/item/PAYLOAD_DRIVER_CRIMSON
+            wc -c /tmp/item/PAYLOAD_DRIVER_CRIMSON
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'PAYLOAD_DRIVER_CRIMSON'
+  jan13-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/PAYLOAD_DRIVER_CRIMSON 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  Spark:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Long Press Rank 3
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; env | sort | head --lines=8; true ; } > /tmp/item/yFGyFVH
+            wc -c /tmp/item/yFGyFVH
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'yFGyFVH'
+  check-partial-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/yFGyFVH 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  PromiseValidNumWriterTree:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Let the footer links breathe
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; touch /tmp/front.tmp && mv /tmp/front.tmp "/tmp/ocean_2019-07-14.old" && ls -l "/tmp/ocean_2019-07-14.old"; true ; } > /tmp/item/affeeef1-9ea4-cc0c-0b32
+            wc -c /tmp/item/affeeef1-9ea4-cc0c-0b32
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'affeeef1-9ea4-cc0c-0b32'
+  run-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/affeeef1-9ea4-cc0c-0b32 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  q_len:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: NEEDS REVIEW export
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; printf '%s\n' 77 15 22 68 >'/tmp/report_layout.log' && sort -n -o '/tmp/report_layout.log' '/tmp/report_layout.log' && cat '/tmp/report_layout.log'; true ; } > /tmp/item/trial2_1771
+            wc -c /tmp/item/trial2_1771
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'trial2_1771'
+  defualt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/trial2_1771 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Checkout vendored deps
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  iterate_revert_locked_hide:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: beforeWeaponStatsBake
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; if [[ -k /tmp ]];then echo 'it is there'; fi; true ; } > /tmp/item/g01d3n-50u7h-m0th-r3por7
+            wc -c /tmp/item/g01d3n-50u7h-m0th-r3por7
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'g01d3n-50u7h-m0th-r3por7'
+  q3-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/g01d3n-50u7h-m0th-r3por7 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  zUnionSidebar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Rinse the calibration beads and seal
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; find /opt -type d -name '*' -empty -exec du -sh {} \; 2> /dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /tmp/item/dbdac0c1-617a-b140-1d13-9731c2038904
+            wc -c /tmp/item/dbdac0c1-617a-b140-1d13-9731c2038904
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'dbdac0c1-617a-b140-1d13-9731c2038904'
+  sam-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/dbdac0c1-617a-b140-1d13-9731c2038904 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  EagerDualCtxConverter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Verify the offer letters week one
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; compgen -k | tac | tail -n 5; true ; } > /tmp/item/polarmuongarden
+            wc -c /tmp/item/polarmuongarden
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'polarmuongarden'
+  preview-v4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/polarmuongarden 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  zoneNum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: RET
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; echo rosa kate chen dave judy iris | xargs printf "%s\n" | sort; true ; } > /tmp/item/ocMxtT3R0GMpmjnlBGZFm
+            wc -c /tmp/item/ocMxtT3R0GMpmjnlBGZFm
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'ocMxtT3R0GMpmjnlBGZFm'
+  jess-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/ocMxtT3R0GMpmjnlBGZFm 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch sources
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  removeAuthor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Carry the sudoers file home
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; touch -d '2020-01-01 12:00' /var/tmp/omega.out && stat -c %y /var/tmp/omega.out; true ; } > /tmp/item/epoch_022
+            wc -c /tmp/item/epoch_022
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'epoch_022'
+  q4-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/epoch_022 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unroll archive
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  p1exdzw0zk7clz5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Move the needle on animation
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 1 -type d -iname 'loop*' -exec ls -ld {} \;; true ; } > /tmp/item/RMA53833
+            wc -c /tmp/item/RMA53833
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'RMA53833'
+  nebula-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/RMA53833 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Seed workspace
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  depthType:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Yell at the release candidate
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; readlink -f /proc/self/exe; true ; } > /tmp/item/snapshot-v8.4.9
+            wc -c /tmp/item/snapshot-v8.4.9
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'snapshot-v8.4.9'
+  Package_Staging7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/snapshot-v8.4.9 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack sources
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  DISABLE_SHIM:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Forklift got wrapped
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -n -h -Q /var/cache | tail -n +2 | head -n 4; true ; } > /tmp/item/87.29.195
+            wc -c /tmp/item/87.29.195
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - '87.29.195'
+  atlas-ng:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/87.29.195 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  refrenceSetting:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Avast nudge
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; ls /sys/class/net | sort | uniq -c | sort -rn | fmt -w 40; true ; } > /tmp/item/232.141.92
+            wc -c /tmp/item/232.141.92
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - '232.141.92'
+  beta-v4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/232.141.92 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch fixtures
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  mvcCollapseInterceptor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Let the feature store breathe
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; find /var/tmp -name '*' -size +0 -exec echo {} \; 2>/dev/null|sort|head -n 5; true ; } > /tmp/item/dswhwrezfnpp7
+            wc -c /tmp/item/dswhwrezfnpp7
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'dswhwrezfnpp7'
+  biuld:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/dswhwrezfnpp7 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  undoRetreive:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Label parcels for route 26
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; find $HOME -maxdepth 1|sort -r|head -n 3|sort|uniq -c; true ; } > /tmp/item/draft_18a3ad8
+            wc -c /tmp/item/draft_18a3ad8
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'draft_18a3ad8'
+  hu-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/draft_18a3ad8 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack toolkit
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  execFlag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Exercise Warm Cobra
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; mkdir -p /tmp/post && cd /tmp/post && touch lion cat whale && ls && cd - >/dev/null; true ; } > /tmp/item/f501cf11acf
+            wc -c /tmp/item/f501cf11acf
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'f501cf11acf'
+  ci-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/f501cf11acf 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Hydrate workspace
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  narrow_handler_us:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Deliver merge value
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; test -h /etc/os-release && echo "exists" || echo missing; true ; } > /tmp/item/crc_8cfcbe76063d
+            wc -c /tmp/item/crc_8cfcbe76063d
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'crc_8cfcbe76063d'
+  india-8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/crc_8cfcbe76063d 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Extract sources
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  dev-752-cube:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Eval Metric Fine Tuning Task
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; grep -qs 'passwd' /etc/nsswitch.conf && echo true || echo false; true ; } > /tmp/item/bin-tmp-log
+            wc -c /tmp/item/bin-tmp-log
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'bin-tmp-log'
+  go1-21-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/bin-tmp-log 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore build cache
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  maple_sierra:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: span 123c
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; echo 'sanity check ok' | tee /tmp/ShelfDisk.dat "/tmp/MarketMedia.out" >/dev/null && cat "/tmp/MarketMedia.out"; true ; } > /tmp/item/CASE-66618-YK
+            wc -c /tmp/item/CASE-66618-YK
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'CASE-66618-YK'
+  deploy:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/CASE-66618-YK 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  armor-header:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: step six
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; ls -F -c -r -n -I 'lost+found' ~/.*rc | tail -n +2 | head -4; true ; } > /tmp/item/node931
+            wc -c /tmp/item/node931
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'node931'
+  hyperion-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/node931 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Stage inputs
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+  JWT_SIZE_IDLE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: POKE relay board
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; if [ -O "$HOME" ]; then echo yes; else echo no; fi; true ; } > /tmp/item/pulse.log
+            wc -c /tmp/item/pulse.log
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'pulse.log'
+  wip-dashboard-hang:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Parse gate manifest
+          command: |
+            cat /tmp/item/pulse.log 2>/dev/null | awk '/./{print NR}' | head -3 || true
+      - run:
+          name: Prepare source
+          command: git clone -q --no-single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: bzcat dist.tar.bz2 | tar xf -
+      - run:
+          command: taskset -c 0-3 ./adapter
+
+  qnqn62:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Here I tidy the old backups
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; grep -r -h -i export /etc/security 2>/dev/null|sort|head -n 5; true ; } > /tmp/item/snapshot-v8.4.9
+            wc -c /tmp/item/snapshot-v8.4.9
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'snapshot-v8.4.9'
+  ertert:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Bribe the login button
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; grep --recursive --no-messages --files-with-matches if /etc/default 2>/dev/null | nl | head --lines=8; true ; } > /tmp/item/g01d3n-50u7h-m0th-r3por7
+            wc -c /tmp/item/g01d3n-50u7h-m0th-r3por7
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'g01d3n-50u7h-m0th-r3por7'
+  capability_controller_locked:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: One quiet expiry
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; compgen -b | rev | head -3; true ; } > /tmp/item/61f1111f6
+            wc -c /tmp/item/61f1111f6
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - '61f1111f6'
+  zackzack:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: ReconcileQueue9
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; install -d -m 750 "/tmp/label" &&stat -c %a "/tmp/label"; true ; } > /tmp/item/node931
+            wc -c /tmp/item/node931
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'node931'
+  FLG-SQLCODE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Yell at the staging table
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'otter swan wolf lion whale' | awk '{$1=""; print}'; true ; } > /tmp/item/meadow51
+            wc -c /tmp/item/meadow51
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'meadow51'
+  chessc032033:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: yup dispatch parcels
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; find /var/log -iname '*.log' -exec basename {} \; 2>/dev/null | nl; true ; } > /tmp/item/ocMxtT3R0GMpmjnlBGZFm
+            wc -c /tmp/item/ocMxtT3R0GMpmjnlBGZFm
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'ocMxtT3R0GMpmjnlBGZFm'
+  arg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Fact check press kit then index
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; grep --recursive --include='*.sh' case /etc/profile.d | cut -d: -f1 | sort -u; true ; } > /tmp/item/232.141.92
+            wc -c /tmp/item/232.141.92
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - '232.141.92'
+  footer_pattern_classes_2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Isolate the audit trail whenever
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; truncate -s 100K "/var/tmp/ocean.md" && stat -c %s "/var/tmp/ocean.md"; true ; } > /tmp/item/PDF-FTP
+            wc -c /tmp/item/PDF-FTP
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'PDF-FTP'
+  js-grid-overlay:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Payments side thaw
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; for n in $(seq 1 10); do sleep 0.1; echo $n ; done | head -n 3; true ; } > /tmp/item/2027-02-28T14-40
+            wc -c /tmp/item/2027-02-28T14-40
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - '2027-02-28T14-40'
+  Trim--CoLuMn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Visa paperwork is trained here
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; [[ -O $HOME ]] && echo yes||echo no; true ; } > /tmp/item/PAYLOAD_DRIVER_CRIMSON
+            wc -c /tmp/item/PAYLOAD_DRIVER_CRIMSON
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'PAYLOAD_DRIVER_CRIMSON'
+  wip-avatar-fast:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: TRAIN CHECKPOINTS MANUAL
+          command: |
+            mkdir -p /tmp/item
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=10000;i++) {k = int(log(i)/log(2)); print i,k}}' > /tmp/item/access_20261218; true
+            wc -c /tmp/item/access_20261218
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'access_20261218'
+  gClanLevel:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: GENTLY evaluate the timestamps
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; if test -u /usr/bin/passwd; then echo 'it is there'; fi; true ; } > /tmp/item/trial2_1771
+            wc -c /tmp/item/trial2_1771
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'trial2_1771'
+  LANG_TLS:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Carry out a full retirement of the weekly digest
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; yes evening | head -n3; true ; } > /tmp/item/polarmuongarden
+            wc -c /tmp/item/polarmuongarden
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'polarmuongarden'
+  mk7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: Truncation id 863
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; grep -w MemFree /proc/meminfo | head -n20; true ; } > /tmp/item/epoch_022
+            wc -c /tmp/item/epoch_022
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'epoch_022'
+  uriRaiseStruct:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: With thanks brief the helpdesk
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; cp /etc/hosts "/tmp/statsliondrawer.conf" && cmp /etc/hosts "/tmp/statsliondrawer.conf" && echo same; true ; } > /tmp/item/crc_8cfcbe76063d
+            wc -c /tmp/item/crc_8cfcbe76063d
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'crc_8cfcbe76063d'
+  render-argEncode:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/item
+      - run:
+          name: RUN 2C42
+          command: |
+            mkdir -p /tmp/item
+            { set +o pipefail 2>/dev/null; compgen -A shopt | head -n5; true ; } > /tmp/item/pulse.log
+            wc -c /tmp/item/pulse.log
+      - persist_to_workspace:
+          root: /tmp/item
+          paths:
+            - 'pulse.log'
+workflows:
+  default:
+    jobs:
+      - bon
+      - BuildTests:
+          requires:
+            - bon
+      - dialogEnum:
+          requires:
+            - bon
+      - fix-queue:
+          requires:
+            - dialogEnum
+      - F2-5A-7D-C2-3F-76:
+          requires:
+            - dialogEnum
+      - node18-bench:
+          requires:
+            - F2-5A-7D-C2-3F-76
+      - DISABLE_SHIM:
+          requires:
+            - F2-5A-7D-C2-3F-76
+      - atlas-ng:
+          requires:
+            - DISABLE_SHIM
+      - execFlag:
+          requires:
+            - DISABLE_SHIM
+      - ci-2a:
+          requires:
+            - execFlag
+      - PromiseValidNumWriterTree:
+          requires:
+            - execFlag
+      - run-staging-release-candidate:
+          requires:
+            - PromiseValidNumWriterTree
+      - maple_sierra:
+          requires:
+            - PromiseValidNumWriterTree
+      - deploy:
+          requires:
+            - maple_sierra
+      - undoRetreive:
+          requires:
+            - maple_sierra
+      - hu-test:
+          requires:
+            - undoRetreive
+      - dev-752-cube:
+          requires:
+            - undoRetreive
+      - go1-21-ship:
+          requires:
+            - dev-752-cube
+      - zUnionSidebar:
+          requires:
+            - dev-752-cube
+      - sam-build:
+          requires:
+            - zUnionSidebar
+      - args_util:
+          requires:
+            - zUnionSidebar
+      - rm-parse-crash:
+          requires:
+            - args_util
+      - p1exdzw0zk7clz5:
+          requires:
+            - args_util
+      - nebula-v2:
+          requires:
+            - p1exdzw0zk7clz5
+      - Spark:
+          requires:
+            - p1exdzw0zk7clz5
+      - check-partial-artifact-bundle:
+          requires:
+            - Spark
+      - mvcCollapseInterceptor:
+          requires:
+            - Spark
+      - biuld:
+          requires:
+            - mvcCollapseInterceptor
+      - depthType
+      - qnqn62:
+          requires:
+            - depthType
+      - Package_Staging7:
+          requires:
+            - qnqn62
+      - iterate_revert_locked_hide:
+          requires:
+            - qnqn62
+      - ertert:
+          requires:
+            - iterate_revert_locked_hide
+      - q3-cleanup:
+          requires:
+            - ertert
+      - NNKV-3266:
+          requires:
+            - ertert
+      - capability_controller_locked:
+          requires:
+            - NNKV-3266
+      - sm-x:
+          requires:
+            - capability_controller_locked
+      - armor-header:
+          requires:
+            - capability_controller_locked
+      - zackzack:
+          requires:
+            - armor-header
+      - hyperion-final:
+          requires:
+            - zackzack
+      - loopCommandAdapter:
+          requires:
+            - zackzack
+      - FLG-SQLCODE:
+          requires:
+            - loopCommandAdapter
+      - run-full-artifact-bundle:
+          requires:
+            - FLG-SQLCODE
+      - zoneNum:
+          requires:
+            - FLG-SQLCODE
+      - chessc032033:
+          requires:
+            - zoneNum
+      - jess-smoke:
+          requires:
+            - chessc032033
+      - refrenceSetting:
+          requires:
+            - chessc032033
+      - arg:
+          requires:
+            - refrenceSetting
+      - beta-v4:
+          requires:
+            - arg
+      - BODY_PRODUCT:
+          requires:
+            - arg
+      - footer_pattern_classes_2:
+          requires:
+            - BODY_PRODUCT
+      - perseus-v2:
+          requires:
+            - footer_pattern_classes_2
+      - test_toggle_canvas:
+          requires:
+            - footer_pattern_classes_2
+      - js-grid-overlay:
+          requires:
+            - test_toggle_canvas
+      - lets-go:
+          requires:
+            - js-grid-overlay
+      - gamma_err:
+          requires:
+            - js-grid-overlay
+      - Trim--CoLuMn:
+          requires:
+            - gamma_err
+      - jan13-smoke:
+          requires:
+            - Trim--CoLuMn
+      - dbg_msg:
+          requires:
+            - Trim--CoLuMn
+      - wip-avatar-fast:
+          requires:
+            - dbg_msg
+      - blast-off:
+          requires:
+            - wip-avatar-fast
+      - q_len:
+          requires:
+            - wip-avatar-fast
+      - gClanLevel:
+          requires:
+            - q_len
+      - defualt:
+          requires:
+            - gClanLevel
+      - EagerDualCtxConverter:
+          requires:
+            - gClanLevel
+      - LANG_TLS:
+          requires:
+            - EagerDualCtxConverter
+      - preview-v4:
+          requires:
+            - LANG_TLS
+      - removeAuthor:
+          requires:
+            - LANG_TLS
+      - mk7:
+          requires:
+            - removeAuthor
+      - q4-smoke:
+          requires:
+            - mk7
+      - narrow_handler_us:
+          requires:
+            - mk7
+      - uriRaiseStruct:
+          requires:
+            - narrow_handler_us
+      - india-8:
+          requires:
+            - uriRaiseStruct
+      - JWT_SIZE_IDLE:
+          requires:
+            - uriRaiseStruct
+      - render-argEncode:
+          requires:
+            - JWT_SIZE_IDLE
+      - wip-dashboard-hang:
+          requires:
+            - render-argEncode
